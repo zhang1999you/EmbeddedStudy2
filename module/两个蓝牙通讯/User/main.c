@@ -19,14 +19,10 @@
 #include "main.h"
 #include "bsp_debug_usart.h"
 #include "bsp_usart_blt.h"
-
+#include "hc05/bsp_hc05.h"
 #define SOFT_DELAY Delay(0x0FFFFF);
-void USART1_SendChar(uint8_t ch) {
-    /* 等待发送寄存器空 */
-    while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
-    /* 发送单个字节 */
-    USART_SendData(USART1, ch);
-}
+
+
 void Delay(__IO u32 nCount); 
 
 /**
@@ -36,23 +32,36 @@ void Delay(__IO u32 nCount);
   */
 int main(void)
 {	
+	/* 1. 系统复位以及启动 HSE/PLL 等 */
+    SystemInit();                 // CMSIS: 复位并配置系统时钟源到默认状态
+    SystemClock_Config();         // SPL: 您自己写的 72MHz 时钟配置函数
+
+	
+	
+	
+	
+	
 	SystemClock_Config();
 	DEBUG_USART_Config();
 	BLT_USART_Config();
-	USART_SendData(USART1, (uint16_t)'1');
-	printf("\r\n 蓝牙模块-AT指令测试例程  \r\n"); 
+	Usart_SendString( DEBUG_USART,"Debug串口正常\n");
 	
+	if(HC05_Init() == 0)
+	{
+		Usart_SendString( DEBUG_USART,"HC05模块检测正常。\n");
+	}
+	else
+	{
+		Usart_SendString( DEBUG_USART,"HC05模块检测不正常。\n");
+	}
+	
+
 	while (1)
 	{
-
 
 	}
 }
 
-void Delay(__IO uint32_t nCount)	 //简单的延时函数
-{
-	for(; nCount != 0; nCount--);
-}
 
 void SystemClock_Config(void)
 {

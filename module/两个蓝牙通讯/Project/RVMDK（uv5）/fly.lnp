@@ -29,6 +29,7 @@
 ".\stm32f10x_it.o"
 ".\bsp_debug_usart.o"
 ".\bsp_usart_blt.o"
+".\bsp_hc05.o"
 --strict --scatter ".\fly.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
