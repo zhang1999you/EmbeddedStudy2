@@ -5,36 +5,18 @@
 #include "stm32f10x.h"
 
 
-#ifndef DEBUG_USART
-  #define DEBUG_USART              USART1
-#endif
-#ifndef DEBUG_USART_CLK
-  #define DEBUG_USART_CLK          RCC_APB2Periph_USART1
-#endif
-#ifndef DEBUG_USART_TX_GPIO_CLK
-  #define DEBUG_USART_TX_GPIO_CLK  RCC_APB2Periph_GPIOA
-#endif
-#ifndef DEBUG_USART_RX_GPIO_CLK
-  #define DEBUG_USART_RX_GPIO_CLK  RCC_APB2Periph_GPIOA
-#endif
-#ifndef DEBUG_USART_TX_GPIO_PIN
-  #define DEBUG_USART_TX_GPIO_PIN  GPIO_Pin_9
-#endif
-#ifndef DEBUG_USART_RX_GPIO_PIN
-  #define DEBUG_USART_RX_GPIO_PIN  GPIO_Pin_10
-#endif
-#ifndef DEBUG_USART_TX_GPIO_PORT
-  #define DEBUG_USART_TX_GPIO_PORT GPIOA
-#endif
-#ifndef DEBUG_USART_RX_GPIO_PORT
-  #define DEBUG_USART_RX_GPIO_PORT GPIOA
-#endif
-#ifndef DEBUG_USART_IRQn
-  #define DEBUG_USART_IRQn         USART1_IRQn
-#endif
-#ifndef DEBUG_USART_BAUDRATE
-  #define DEBUG_USART_BAUDRATE     115200
-#endif
+
+#define DEBUG_USART              USART1
+#define DEBUG_USART_CLK          RCC_APB2Periph_USART1
+#define DEBUG_USART_TX_GPIO_CLK  RCC_APB2Periph_GPIOA
+#define DEBUG_USART_RX_GPIO_CLK  RCC_APB2Periph_GPIOA
+#define DEBUG_USART_TX_GPIO_PIN  GPIO_Pin_9
+#define DEBUG_USART_RX_GPIO_PIN  GPIO_Pin_10
+#define DEBUG_USART_TX_GPIO_PORT GPIOA
+#define DEBUG_USART_RX_GPIO_PORT GPIOA
+#define DEBUG_USART_IRQn         USART1_IRQn
+#define DEBUG_USART_BAUDRATE     115200
+
 
 
 void DEBUG_USART_Config(void);

@@ -36,12 +36,7 @@ int main(void)
     SystemInit();                 // CMSIS: 复位并配置系统时钟源到默认状态
     SystemClock_Config();         // SPL: 您自己写的 72MHz 时钟配置函数
 
-	
-	
-	
-	
-	
-	SystemClock_Config();
+
 	DEBUG_USART_Config();
 	BLT_USART_Config();
 	Usart_SendString( DEBUG_USART,"Debug串口正常\n");

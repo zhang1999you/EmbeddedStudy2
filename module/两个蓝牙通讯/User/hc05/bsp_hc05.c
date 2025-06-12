@@ -4,8 +4,9 @@
 #include "stm32f10x.h"
 #include "bsp_usart_blt.h"
 #include "bsp_debug_usart.h"
+#include "delay.h"
 
-
+ReceiveData BLT_USART_ReceiveData;
 uint8_t HC05_Send_CMD(char* cmd,uint8_t clean)
 {	 		 
   uint8_t retry=3;
@@ -16,10 +17,9 @@ uint8_t HC05_Send_CMD(char* cmd,uint8_t clean)
 	while(retry--)
 	{
         GPIO_SetBits(BLT_KEY_GPIO_PORT, BLT_KEY_GPIO_PIN);
-        Usart_SendString(BLT_USART,(uint8_t *)cmd);
+        Usart_SendString(BLT_USART,(char *)cmd);
         i=200;              //初始化i，最长等待2秒
-        hc05_delay_ms(10);  
-		
+		Delay(10);
 		do
         {
             if(BLT_USART_ReceiveData.receive_data_flag == 1)
@@ -31,8 +31,13 @@ uint8_t HC05_Send_CMD(char* cmd,uint8_t clean)
                     if(strstr(redata,"OK"))				
                     {
                         //打印发送的蓝牙指令和返回信息
-                        HC05_DEBUG("send CMD: %s",cmd); 
-                        HC05_DEBUG("recv back: %s",redata);
+						Usart_SendString(DEBUG_USART, "send CMD: ");
+						Usart_SendString(DEBUG_USART, cmd);
+						Usart_SendString(DEBUG_USART, "\r\n");
+						
+						Usart_SendString(DEBUG_USART, "recv back: ");
+						Usart_SendString(DEBUG_USART, redata);
+						Usart_SendString(DEBUG_USART, "\r\n");
                         
                         if(clean==1)
                             clean_rebuff();
@@ -42,18 +47,26 @@ uint8_t HC05_Send_CMD(char* cmd,uint8_t clean)
                 }
             }
             
-            hc05_delay_ms(10);
+            Delay(10);
             
         }while( --i ); //继续等待
+        Usart_SendString(DEBUG_USART, "send CMD: ");
+		Usart_SendString(DEBUG_USART, cmd);
+		Usart_SendString(DEBUG_USART, "\r\n");
+		
+		
+		Usart_SendString(DEBUG_USART, "recv back: ");
+		Usart_SendString(DEBUG_USART, redata);
+		Usart_SendString(DEBUG_USART, "\r\n");
         
-        HC05_DEBUG("send CMD: %s",cmd); //打印发送的蓝牙指令和返回信息
-        HC05_DEBUG("recv back: %s",redata);
-        HC05_DEBUG("HC05 send CMD fail %d times", retry); //提示失败重试
+		// 将数字转换为字符串
+		Usart_SendString(DEBUG_USART, "HC05 send CMD fail %d times");
+		Usart_SendString(DEBUG_USART, (char *)retry);
+		Usart_SendString(DEBUG_USART, "\r\n");
+		
     
     }
-  
-	HC05_DEBUG("HC05 send CMD fail ");
-		
+	Usart_SendString(DEBUG_USART, "HC05 send CMD fail");
 	if(clean==1)
 		clean_rebuff();
 
@@ -85,7 +98,7 @@ static void HC05_GPIO_Config(void)
     GPIO_Init(BLT_KEY_GPIO_PORT, &GPIO_InitStructure);
 
     /* 4. 默认将 KEY 引脚拉低（模块正常工作） */
-    GPIO_ResetBits(BLT_KEY_GPIO_PORT, BLT_KEY_GPIO_PIN);
+    //GPIO_ResetBits(BLT_KEY_GPIO_PORT, BLT_KEY_GPIO_PIN);
 
 }
 

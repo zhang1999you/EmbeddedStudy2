@@ -11,36 +11,22 @@
 #include "stm32f10x_rcc.h"
 #include "misc.h"                 // NVIC_InitTypeDef ????
 
-#ifndef BLT_USART3
-  #define BLT_USART3                  USART3
-#endif
-#ifndef BLT_USART3_CLK
-  #define BLT_USART3_CLK              RCC_APB1Periph_USART3
-#endif
-#ifndef BLT_USART3_TX_GPIO_CLK
-  #define BLT_USART3_TX_GPIO_CLK      RCC_APB2Periph_GPIOB
-#endif
-#ifndef BLT_USART3_RX_GPIO_CLK
-  #define BLT_USART3_RX_GPIO_CLK      RCC_APB2Periph_GPIOB
-#endif
-#ifndef BLT_USART3_TX_PIN
-  #define BLT_USART3_TX_PIN           GPIO_Pin_10
-#endif
-#ifndef BLT_USART3_RX_PIN
-  #define BLT_USART3_RX_PIN           GPIO_Pin_11
-#endif
-#ifndef BLT_USART3_GPIO_PORT
-  #define BLT_USART3_GPIO_PORT        GPIOB
-#endif
-#ifndef BLT_USART3_IRQn
-  #define BLT_USART3_IRQn             USART3_IRQn
-#endif
-#ifndef BLT_USART_BAUD_RATE
-  #define BLT_USART_BAUD_RATE         9600
-#endif
+
+#define BLT_USART3                  USART3
+#define BLT_USART3_CLK              RCC_APB1Periph_USART3
+#define BLT_USART3_TX_GPIO_CLK      RCC_APB2Periph_GPIOB
+#define BLT_USART3_RX_GPIO_CLK      RCC_APB2Periph_GPIOB
+#define BLT_USART3_TX_PIN           GPIO_Pin_10
+#define BLT_USART3_RX_PIN           GPIO_Pin_11
+#define BLT_USART3_GPIO_PORT        GPIOB
+#define BLT_USART3_IRQn             USART3_IRQn
+#define BLT_USART_BAUD_RATE         9600
+
 
 USART_InitTypeDef  BLT_USART_InitStruct;
 USART_TypeDef     *BLT_USARTx = BLT_USART3;
+extern ReceiveData BLT_USART_ReceiveData;
+
 
 void BLT_USART_Config(void)
 {
@@ -89,9 +75,23 @@ void BLT_USART_Config(void)
 }
 
 
+//获取接收到的数据和长度
+char *get_rebuff(uint16_t *len) 
+{
+    *len = BLT_USART_ReceiveData.datanum;
+    return (char *)&BLT_USART_ReceiveData.uart_buff;
+}
 
 
-
+//清空缓冲区
+void clean_rebuff(void)
+{
+    uint16_t i=UART_BUFF_SIZE+1;
+    BLT_USART_ReceiveData.datanum = 0;
+	  BLT_USART_ReceiveData.receive_data_flag = 0;
+	while(i)
+		BLT_USART_ReceiveData.uart_buff[--i]=0;
+}
 
 
 
