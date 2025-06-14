@@ -7,6 +7,7 @@
 #include "delay.h"
 
 ReceiveData BLT_USART_ReceiveData;
+ReceiveData DEBUG_USART_ReceiveData;
 uint8_t HC05_Send_CMD(char* cmd,uint8_t clean)
 {	 		 
   uint8_t retry=3;
@@ -18,12 +19,15 @@ uint8_t HC05_Send_CMD(char* cmd,uint8_t clean)
 	{
         GPIO_SetBits(BLT_KEY_GPIO_PORT, BLT_KEY_GPIO_PIN);
         Usart_SendString(BLT_USART,(char *)cmd);
+		
         i=200;              //初始化i，最长等待2秒
 		Delay(10);
 		do
         {
+			
             if(BLT_USART_ReceiveData.receive_data_flag == 1)
             {
+				
                 BLT_USART_ReceiveData.uart_buff[BLT_USART_ReceiveData.datanum] = '\0';
                 redata = get_rebuff(&len); 
                 if(len>0)
@@ -46,7 +50,10 @@ uint8_t HC05_Send_CMD(char* cmd,uint8_t clean)
                     }
                 }
             }
-            
+            else
+			{
+
+			}
             Delay(10);
             
         }while( --i ); //继续等待
@@ -109,7 +116,6 @@ uint8_t HC05_Init(void)
 	HC05_GPIO_Config();//初始化int和key的GPIO
 	//2、
 	BLT_USART_Config();
-	
 	
 	return HC05_Send_CMD("AT\r\n",1);
 }

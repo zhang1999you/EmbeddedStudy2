@@ -358,7 +358,7 @@
             <wLevel>2</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
-            <uC99>0</uC99>
+            <uC99>1</uC99>
             <useXO>0</useXO>
             <VariousControls>
               <MiscControls></MiscControls>
@@ -581,6 +581,16 @@
               <FileName>bsp_usart_blt.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\usart\bsp_usart_blt.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_hc05.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\hc05\bsp_hc05.c</FilePath>
+            </File>
+            <File>
+              <FileName>delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\delay.c</FilePath>
             </File>
           </Files>
         </Group>

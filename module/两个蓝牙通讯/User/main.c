@@ -20,26 +20,29 @@
 #include "bsp_debug_usart.h"
 #include "bsp_usart_blt.h"
 #include "hc05/bsp_hc05.h"
+#include "delay.h"
 #define SOFT_DELAY Delay(0x0FFFFF);
 
 
 void Delay(__IO u32 nCount); 
+
 
 /**
   * @brief  主函数
   * @param  无  
   * @retval 无
   */
+
 int main(void)
 {	
 	/* 1. 系统复位以及启动 HSE/PLL 等 */
     SystemInit();                 // CMSIS: 复位并配置系统时钟源到默认状态
     SystemClock_Config();         // SPL: 您自己写的 72MHz 时钟配置函数
-
+	SysTick_Config(SystemCoreClock/1000);
 
 	DEBUG_USART_Config();
 	BLT_USART_Config();
-	Usart_SendString( DEBUG_USART,"Debug串口正常\n");
+	//Usart_SendString( BLT_USART,"Debug串口正常\n");
 	
 	if(HC05_Init() == 0)
 	{

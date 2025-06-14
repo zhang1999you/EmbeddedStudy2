@@ -8,9 +8,8 @@ Project File Date:  06/06/2025
 
 <h2>Output:</h2>
 Build target 'Fly'
-compiling bsp_hc05.c...
 linking...
-Program Size: Code=3432 RO-data=268 RW-data=28 ZI-data=2676  
+Program Size: Code=3840 RO-data=268 RW-data=44 ZI-data=3692  
 FromELF: creating hex file...
 ".\fly.axf" - 0 Error(s), 0 Warning(s).
 Load "C:\\Users\\13763\\Desktop\\自学\\EmbeddedStudy2\\module\\两个蓝牙通讯\\Project\\RVMDK（uv5）\\fly.axf" 
@@ -18,44 +17,48 @@ Erase Done.
 Programming Done.
 Verify OK.
 Application running ...
-Load "C:\\Users\\13763\\Desktop\\自学\\EmbeddedStudy2\\module\\两个蓝牙通讯\\Project\\RVMDK（uv5）\\fly.axf" 
-Error: Flash Download failed  -  Target DLL has been cancelled
-Load "C:\\Users\\13763\\Desktop\\自学\\EmbeddedStudy2\\module\\两个蓝牙通讯\\Project\\RVMDK（uv5）\\fly.axf" 
+</pre>
+</body>
+</html>
+.
+Application running ...
+\Users\\13763\\Desktop\\自学\\EmbeddedStudy2\\module\\两个蓝牙通讯\\Project\\RVMDK（uv5）\\fly.axf" 
 Erase Done.
 Programming Done.
 Verify OK.
 Application running ...
-Load "C:\\Users\\13763\\Desktop\\自学\\EmbeddedStudy2\\module\\两个蓝牙通讯\\Project\\RVMDK（uv5）\\fly.axf" 
+\13763\\Desktop\\自学\\EmbeddedStudy2\\module\\两个蓝牙通讯\\Project\\RVMDK（uv5）\\fly.axf" 
 Erase Done.
 Programming Done.
 Verify OK.
 Application running ...
-Load "C:\\Users\\13763\\Desktop\\自学\\EmbeddedStudy2\\module\\两个蓝牙通讯\\Project\\RVMDK（uv5）\\fly.axf" 
-Erase Done.
-Programming Done.
+ne.
 Verify OK.
 Application running ...
-Load "C:\\Users\\13763\\Desktop\\自学\\EmbeddedStudy2\\module\\两个蓝牙通讯\\Project\\RVMDK（uv5）\\fly.axf" 
-Erase Done.
-Programming Done.
-Verify OK.
-Application running ...
-             clean_rebuff();
-..\..\User\hc05\bsp_hc05.c: 7 warnings, 0 errors
+
+compiling stm32f10x_wwdg.c...
+compiling main.c...
+compiling stm32f10x_it.c...
+compiling bsp_debug_usart.c...
+compiling bsp_usart_blt.c...
+compiling bsp_hc05.c...
 compiling delay.c...
-..\..\User\delay.h(10): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\..\User\delay.c(9): warning:  #1-D: last line of file ends without a newline
-  }
-..\..\User\delay.c: 2 warnings, 0 errors
-".\fly.axf" - 1 Error(s), 9 Warning(s).
-Target not created
-c05.c(58): warning:  #223-D: function "clean_rebuff" declared implicitly
-                clean_rebuff();
-..\..\User\hc05\bsp_hc05.c: 8 warnings, 2 errors
-compiling delay.c...
-..\..\User\delay.c(9): warning:  #1-D: last line of file ends without a newline
-  }
-..\..\User\delay.c: 1 warning, 0 errors
-".\fly.axf" - 3 Error(s), 9 Warning(s).
+linking...
+Program Size: Code=3592 RO-data=268 RW-data=24 ZI-data=2664  
+FromELF: creating hex file...
+".\fly.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\13763\\Desktop\\自学\\EmbeddedStudy2\\module\\两个蓝牙通讯\\Project\\RVMDK（uv5）\\fly.axf" 
+Erase Done.
+Programming Done.
+Verify OK.
+Application running ...
+         = USART_Mode_Tx  // 只开 TX
+..\..\User\main.c(76): error:  #29: expected an expression
+          for (volatile int i = 0; i < 1000000; i++);  // 简单延时
+..\..\User\main.c(76): error:  #20: identifier "i" is undefined
+          for (volatile int i = 0; i < 1000000; i++);  // 简单延时
+..\..\User\main.c(124): warning:  #128-D: loop is not reachable
+        while (1)
+..\..\User\main.c: 1 warning, 13 errors
+".\fly.axf" - 13 Error(s), 1 Warning(s).
 Target not created

@@ -25,8 +25,11 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
-
+#include "./usart/bsp_usart_blt.h"
+#include "bsp_debug_usart.h"
 extern volatile uint32_t TimingDelay;
+extern ReceiveData BLT_USART_ReceiveData;
+extern ReceiveData DEBUG_USART_ReceiveData;
 /** @addtogroup STM32F10x_StdPeriph_Template
   * @{
   */
@@ -140,6 +143,83 @@ void SysTick_Handler(void)
     if (TimingDelay != 0)
         TimingDelay--;
 }
+
+
+void USART3_IRQHandler(void)
+{
+    uint8_t uch;
+	Usart_SendString( USART3,"Debug1\n");
+    // 1) 接收中断：RXNE
+    if (USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)
+    {
+        // 从数据寄存器读取一个字节
+        uch = (uint8_t)USART_ReceiveData(USART3);
+
+        // 存入缓冲区，预留 1 字节放结束符
+        if (BLT_USART_ReceiveData.datanum < (UART_BUFF_SIZE - 1))
+        {
+            BLT_USART_ReceiveData.uart_buff[BLT_USART_ReceiveData.datanum++] = uch;
+        }
+
+        // 清除 RXNE 中断挂起位
+        USART_ClearITPendingBit(USART3, USART_IT_RXNE);
+    }
+
+    // 2) 空闲中断：IDLE
+    if (USART_GetITStatus(USART3, USART_IT_IDLE) != RESET)
+    {
+        // 标记已接收完成
+        BLT_USART_ReceiveData.receive_data_flag = 1;
+
+        // 清除 IDLE 标志：读取 SR 再读 DR
+        (void)USART3->SR;
+        (void)USART3->DR;
+
+        // 如果库中有清除函数，也可以调用：
+        // USART_ClearFlag(USART3, USART_FLAG_IDLE);
+    }
+}
+
+
+
+void USART1_IRQHandler(void)
+{
+    uint8_t uch;
+    /* 1) 接收中断: RXNE */
+    if (USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
+    {
+        /* 读取 DR 寄存器，获得一个字节 */
+        uch = (uint8_t)USART_ReceiveData(USART1);
+        
+        /* 如果缓冲区未满，则过滤掉换行（0x0A）和回车（0x0D）后存入 */
+        if (DEBUG_USART_ReceiveData.datanum < UART_BUFF_SIZE)
+        {
+            if (uch != '\n' && uch != '\r')
+            {
+                DEBUG_USART_ReceiveData.uart_buff[ DEBUG_USART_ReceiveData.datanum++ ] = uch;
+            }
+        }
+        
+        /* 清除 RXNE 中断挂起位 */
+        USART_ClearITPendingBit(USART1, USART_IT_RXNE);
+    }
+    
+    /* 2) 空闲中断: IDLE ——— 数据帧接收完毕 */
+    if (USART_GetITStatus(USART1, USART_IT_IDLE) != RESET)
+    {
+        /* 标记已接收完毕 */
+        DEBUG_USART_ReceiveData.receive_data_flag = 1;
+        
+        /* 清除 IDLE 标志：读取 SR 再读 DR */
+        (void)USART1->SR;
+        (void)USART1->DR;
+        
+        /* 如果想用库函数，也可尝试：
+         * USART_ClearFlag(USART1, USART_FLAG_IDLE);
+         */
+    }
+}
+
 
 /******************************************************************************/
 /*                 STM32F10x Peripherals Interrupt Handlers                   */
