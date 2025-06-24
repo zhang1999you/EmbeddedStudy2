@@ -20,7 +20,7 @@
 #define BLT_USART3_RX_PIN           GPIO_Pin_11
 #define BLT_USART3_GPIO_PORT        GPIOB
 #define BLT_USART3_IRQn             USART3_IRQn
-#define BLT_USART_BAUD_RATE         9600
+#define BLT_USART_BAUD_RATE         38400
 
 
 USART_InitTypeDef  BLT_USART_InitStruct;

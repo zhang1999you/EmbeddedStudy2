@@ -147,8 +147,8 @@ void SysTick_Handler(void)
 
 void USART3_IRQHandler(void)
 {
+	
     uint8_t uch;
-	Usart_SendString( USART3,"Debug1\n");
     // 1) 接收中断：RXNE
     if (USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)
     {
@@ -207,6 +207,7 @@ void USART1_IRQHandler(void)
     /* 2) 空闲中断: IDLE ——— 数据帧接收完毕 */
     if (USART_GetITStatus(USART1, USART_IT_IDLE) != RESET)
     {
+		Usart_SendString( USART1,"Debug1\n");
         /* 标记已接收完毕 */
         DEBUG_USART_ReceiveData.receive_data_flag = 1;
         

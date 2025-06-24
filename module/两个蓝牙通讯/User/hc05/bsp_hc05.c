@@ -14,7 +14,7 @@ uint8_t HC05_Send_CMD(char* cmd,uint8_t clean)
 	uint32_t i;
 	uint16_t len;
   char * redata;
-  
+  Delay(100);
 	while(retry--)
 	{
         GPIO_SetBits(BLT_KEY_GPIO_PORT, BLT_KEY_GPIO_PIN);
@@ -25,7 +25,8 @@ uint8_t HC05_Send_CMD(char* cmd,uint8_t clean)
 		do
         {
 			
-            if(BLT_USART_ReceiveData.receive_data_flag == 1)
+            //if(BLT_USART_ReceiveData.receive_data_flag == 1)
+			if(1)
             {
 				
                 BLT_USART_ReceiveData.uart_buff[BLT_USART_ReceiveData.datanum] = '\0';
@@ -106,6 +107,7 @@ static void HC05_GPIO_Config(void)
 
     /* 4. 默认将 KEY 引脚拉低（模块正常工作） */
     //GPIO_ResetBits(BLT_KEY_GPIO_PORT, BLT_KEY_GPIO_PIN);
+	GPIO_SetBits(BLT_KEY_GPIO_PORT, BLT_KEY_GPIO_PIN);
 
 }
 
