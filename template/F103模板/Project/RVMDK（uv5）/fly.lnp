@@ -27,7 +27,9 @@
 ".\stm32f10x_wwdg.o"
 ".\main.o"
 ".\stm32f10x_it.o"
---strict --scatter ".\fly.sct"
+".\delay.o"
+".\bsp_debug_usart.o"
+--library_type=microlib --strict --scatter ".\fly.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list ".\fly.map" -o .\fly.axf

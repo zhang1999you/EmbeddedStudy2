@@ -21,11 +21,13 @@
 #include "bsp_usart_blt.h"
 #include "hc05/bsp_hc05.h"
 #include "delay.h"
+#include <string.h>
+#include <stdio.h>
 #define SOFT_DELAY Delay(0x0FFFFF);
 
 
 void Delay(__IO u32 nCount); 
-
+extern ReceiveData BLT_USART_ReceiveData;
 
 /**
   * @brief  主函数
@@ -43,20 +45,26 @@ int main(void)
 	DEBUG_USART_Config();
 	BLT_USART_Config();
 	//Usart_SendString( BLT_USART,"Debug串口正常\n");
-	
-	if(HC05_Init() == 0)
-	{
-		Usart_SendString( DEBUG_USART,"HC05模块检测正常。\n");
-	}
-	else
-	{
-		Usart_SendString( DEBUG_USART,"HC05模块检测不正常。\n");
-	}
-	
 
 	while (1)
 	{
-
+		uint16_t len;
+		char * redata;
+		if(BLT_USART_ReceiveData.receive_data_flag == 1)
+		{
+			    BLT_USART_ReceiveData.uart_buff[BLT_USART_ReceiveData.datanum] = '\0';
+                redata = get_rebuff(&len); 
+                if(len>0)
+                {
+                    if(strstr(redata,"OK"))				
+                    {
+						Usart_SendString( BLT_USART,"sucess\r\n");
+                    }
+                }
+				clean_rebuff();
+		}
+		Usart_SendString( BLT_USART,"zhangxu\r\n");
+		Delay(1000);
 	}
 }
 

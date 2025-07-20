@@ -68,7 +68,7 @@ void DEBUG_USART_Config(void)
 
     /* 7. ?? USART ????(RXNE)?????(IDLE) */
     USART_ITConfig(DEBUG_USART, USART_IT_RXNE, ENABLE);
-
+	USART_ITConfig(DEBUG_USART, USART_IT_IDLE, ENABLE);
     /* 8. ???? USART ?? */
     USART_Cmd(DEBUG_USART, ENABLE);
 }

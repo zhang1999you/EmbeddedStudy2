@@ -25,8 +25,8 @@ uint8_t HC05_Send_CMD(char* cmd,uint8_t clean)
 		do
         {
 			
-            //if(BLT_USART_ReceiveData.receive_data_flag == 1)
-			if(1)
+            if(BLT_USART_ReceiveData.receive_data_flag == 1)
+			//if(1)
             {
 				
                 BLT_USART_ReceiveData.uart_buff[BLT_USART_ReceiveData.datanum] = '\0';

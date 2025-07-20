@@ -69,7 +69,7 @@ void BLT_USART_Config(void)
 
     /* 7. ?? USART ????(RXNE)?????(IDLE) */
     USART_ITConfig(BLT_USART, USART_IT_RXNE, ENABLE);
-
+	USART_ITConfig(BLT_USART, USART_IT_IDLE, ENABLE);
     /* 8. ???? USART ?? */
     USART_Cmd(BLT_USART, ENABLE);
 	

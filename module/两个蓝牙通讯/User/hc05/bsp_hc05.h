@@ -15,7 +15,7 @@
 #define BLT_USART  USART3
 #define BLT_USART_CLK  RCC_APB1Periph_USART3
 #define BLT_USART_IRQn         USART3_IRQn
-#define BLT_USART_BAUDRATE     38400
+#define BLT_USART_BAUDRATE     115200
 
 
 
