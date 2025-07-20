@@ -374,4 +374,7 @@
 void MPU6050_Init(void);
 uint8_t MPU6050ReadID(void);
 
+void MPU6050ReadTemp(short *tempData);
+void MPU6050ReadGyro(short *gyroData);
+void MPU6050ReadAcc(short *accData);
 #endif  /*__MPU6050*/

@@ -25,8 +25,15 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
-int task_readdata_finish;
 extern volatile uint32_t TimingDelay;
+
+
+/* 定义两个定时器：一个 500ms、一个 1000ms */
+volatile SwTimer_t swTimers[NUM_TIMERS] = {
+    { 500, 0, 0 },   // timers[0]：500?ms
+};
+
+
 /** @addtogroup STM32F10x_StdPeriph_Template
   * @{
   */
@@ -140,6 +147,13 @@ void SysTick_Handler(void)
 	if (TimingDelay != 0)
 	{
 		TimingDelay--;
+	}
+	//任务定时器
+	for (int i = 0; i < NUM_TIMERS; i++) {
+			if (++swTimers[i].counter >= swTimers[i].period_ms) {
+					swTimers[i].counter = 0;
+					swTimers[i].flag    = 1;
+			}
 	}
 	
 }

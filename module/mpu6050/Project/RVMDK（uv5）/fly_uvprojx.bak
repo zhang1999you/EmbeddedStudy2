@@ -364,7 +364,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_MD, USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\User;..\..\Libraries\FWlib\inc;..\..\Libraries\CMSIS</IncludePath>
+              <IncludePath>..\..\User;..\..\Libraries\FWlib\inc;..\..\Libraries\CMSIS;..\..\User\usart</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -576,6 +576,11 @@
               <FileName>delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_debug_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\usart\bsp_debug_usart.c</FilePath>
             </File>
           </Files>
         </Group>

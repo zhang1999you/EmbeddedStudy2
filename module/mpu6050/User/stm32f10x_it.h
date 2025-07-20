@@ -29,7 +29,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x.h"
-extern int task_readdata_finish;
+
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
@@ -45,6 +45,16 @@ void DebugMon_Handler(void);
 void PendSV_Handler(void);
 void SysTick_Handler(void);
 
+//任务软件定时器部分
+#define NUM_TIMERS       1       // 需要的定时器数量
+/* 任务软件定时器结构 */
+typedef struct {
+    uint32_t period_ms;  // 期望周期，单位 ms
+    uint32_t counter;    // 累加计数
+    uint8_t  flag;       // 到期标志
+} SwTimer_t;
+extern volatile SwTimer_t swTimers[NUM_TIMERS];
+	 
 #ifdef __cplusplus
 }
 #endif

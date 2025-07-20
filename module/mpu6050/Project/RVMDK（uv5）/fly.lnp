@@ -31,7 +31,7 @@
 ".\bsp_debug_usart.o"
 ".\mpu6050.o"
 ".\bsp_hard_i2c.o"
---library_type=microlib --strict --scatter ".\fly.sct"
+--strict --scatter ".\fly.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list ".\fly.map" -o .\fly.axf
